@@ -14,10 +14,14 @@ anthropic_api_key = get_anthropic_api_key()
 
 from crewai import LLM
 
+# Enable extended thinking with default settings
+# Configure thinking with budget control
 llm = LLM(
-    model="anthropic/claude-3-5-sonnet-20241022",
-    api_key=anthropic_api_key,  # Or set ANTHROPIC_API_KEY
-    max_tokens=4096  # Required for Anthropic
+    model="anthropic/claude-sonnet-4-5-20250929",  # Latest Sonnet 3.5
+    # OR: "anthropic/claude-3-opus-20240229"
+    # OR: "anthropic/claude-3-haiku-20240307"
+    api_key=anthropic_api_key,
+    max_tokens=4096
 )
 
 planner = Agent(
@@ -60,7 +64,7 @@ writer = Agent(
     api_key=anthropic_api_key
 )   
 
-writer = Agent(
+editor = Agent(
     role="Editor",
     goal="Edit a given blog post to align with "
          "the writing style of the organisation.",
@@ -71,7 +75,7 @@ writer = Agent(
               "provides balanced view points "
               "when providing opinions or assertions, "
               "and also avoids major controversial topics "
-              "or opinions when possible."
+              "or opinions when possible.",
     allow_delegation=False,
     verbose=True,
     llm=llm,
@@ -123,11 +127,16 @@ edit = Task(
         "that adheres to the organisation's "
         "editorial standards and should have 2 or 3 paragraphs.",
     agent=editor
-
 )
 
 crew = Crew(
     agents=[planner, writer, editor],
     tasks=[plan, write, edit],
     verbose=True
+)
+
+result = crew.kickoff(
+    {
+        "topic": "Artificial Intelligence in Healthcare"
+    }
 )
