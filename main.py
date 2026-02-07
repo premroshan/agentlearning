@@ -125,3 +125,9 @@ edit = Task(
     agent=editor
 
 )
+
+crew = Crew(
+    agents=[planner, writer, editor],
+    tasks=[plan, write, edit],
+    verbose=True
+)
