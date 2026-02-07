@@ -5,6 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "crewai-tools>=1.9.3",
     "crewai[anthropic]>=1.9.3",
     "ipython>=9.10.0",
+    "ollama>=0.6.1",
 ]
