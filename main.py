@@ -135,8 +135,35 @@ crew = Crew(
     verbose=True
 )
 
-result = crew.kickoff(
-    {
-        "topic": "Artificial Intelligence in Healthcare"
-    }
-)
+def main():
+    """Interactive loop to generate blog posts on user-provided topics."""
+    print("Blog Post Generator")
+    print("=" * 50)
+    print("Enter a topic to generate a blog post, or type 'exit' to quit.\n")
+    
+    while True:
+        topic = input("Enter topic (or 'exit' to quit): ").strip()
+        
+        if topic.lower() == 'exit':
+            print("Goodbye!")
+            break
+        
+        if not topic:
+            print("Please enter a valid topic.\n")
+            continue
+        
+        print(f"\nGenerating blog post on: {topic}")
+        print("-" * 50)
+        
+        try:
+            result = crew.kickoff({"topic": topic})
+            print("\n" + "=" * 50)
+            print("RESULT:")
+            print("=" * 50)
+            print(result)
+            print("\n" + "=" * 50 + "\n")
+        except Exception as e:
+            print(f"\nError generating blog post: {e}\n")
+
+if __name__ == "__main__":
+    main()
