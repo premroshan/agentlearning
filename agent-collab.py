@@ -25,6 +25,8 @@ llm = LLM(
     max_tokens=4096
 )
 
+os.environ["EMBEDDINGS_OLLAMA_MODEL_NAME"] = "mxbai-embed-large"
+
 search_tool = SerperDevTool()
 scrape_tool = ScrapeWebsiteTool()
 

@@ -209,4 +209,5 @@ __marimo__/
 venue_details.json
 logistics_report.json
 marketing_report.md
+*.md
 
